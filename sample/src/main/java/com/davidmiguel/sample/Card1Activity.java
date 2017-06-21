@@ -10,14 +10,17 @@ import android.widget.Toast;
 import com.davidmiguel.dragtoclose.DragListener;
 import com.davidmiguel.dragtoclose.DragToClose;
 
-public class CardActivity extends AppCompatActivity {
-    
-    private static final String TAG = CardActivity.class.getSimpleName();
-    
+/**
+ * Example that closes the activity when the card is dragged out.
+ */
+public class Card1Activity extends AppCompatActivity {
+
+    private static final String TAG = Card1Activity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card);
+        setContentView(R.layout.activity_card1);
 
         DragToClose outerLayout = (DragToClose) findViewById(R.id.drag_to_close);
         outerLayout.setDragListener(new DragListener() {
@@ -35,7 +38,7 @@ public class CardActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CardActivity.this, R.string.clicked, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Card1Activity.this, R.string.clicked, Toast.LENGTH_SHORT).show();
             }
         });
     }

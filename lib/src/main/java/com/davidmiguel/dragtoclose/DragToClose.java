@@ -44,10 +44,12 @@ public class DragToClose extends FrameLayout {
     // if the threshold is exceeded, the view is closed automatically
     static final float HEIGHT_THRESHOLD_TO_CLOSE = 0.5f;
 
+    // Attributes
     @IdRes
     private int draggableContainerId;
     @IdRes
     private int draggableViewId;
+    private boolean finishActivity;
 
     private View draggableContainer;
     private View draggableView;
@@ -181,15 +183,18 @@ public class DragToClose extends FrameLayout {
     }
 
     /**
-     * Finishes the activity.
+     * Notifies the listener that the view has been closed
+     * and finishes the activity (if need be).
      */
     void closeActivity() {
         if (listener != null) {
             listener.onViewCosed();
         }
-        Activity activity = (Activity) getContext();
-        activity.finish();
-        activity.overridePendingTransition(0, android.R.anim.fade_out);
+        if (finishActivity) {
+            Activity activity = (Activity) getContext();
+            activity.finish();
+            activity.overridePendingTransition(0, android.R.anim.fade_out);
+        }
     }
 
     /**
@@ -218,6 +223,7 @@ public class DragToClose extends FrameLayout {
         try {
             draggableViewId = array.getResourceId(R.styleable.DragToClose_draggableView, -1);
             draggableContainerId = array.getResourceId(R.styleable.DragToClose_draggableContainer, -1);
+            finishActivity = array.getBoolean(R.styleable.DragToClose_finishActivity, true);
             if (draggableViewId == -1 || draggableContainerId == -1) {
                 throw new IllegalArgumentException("The attributes are required.");
             }

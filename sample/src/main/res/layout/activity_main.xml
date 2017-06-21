@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
 
     <Button
-        android:id="@+id/open_btn"
+        android:id="@+id/open_card1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:onClick="openCard"
+        android:layout_centerHorizontal="true"
+        android:onClick="openCard1"
         android:padding="30dp"
-        android:text="@string/open_card" />
+        android:text="@string/open_card_1" />
+
+    <Button
+        android:id="@+id/open_card2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/open_card1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="openCard2"
+        android:padding="30dp"
+        android:text="@string/open_card_2" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:text="@string/developed_by" />
 
-</FrameLayout>
+</RelativeLayout>
