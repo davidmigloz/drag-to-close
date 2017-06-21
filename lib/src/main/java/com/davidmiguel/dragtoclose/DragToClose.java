@@ -98,7 +98,7 @@ public class DragToClose extends FrameLayout {
         boolean handled = false;
         if (isEnabled()) {
             handled = dragHelper.shouldInterceptTouchEvent(event)
-                    || dragHelper.isViewUnder(draggableView, (int) event.getX(), (int) event.getY());
+                    && dragHelper.isViewUnder(draggableView, (int) event.getX(), (int) event.getY());
         } else {
             dragHelper.cancel();
         }
