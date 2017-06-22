@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Example of closing activity both dragging or clicking.
+ * In this example, DragToClose is used inside a fragment and the user can
+ * close the activity by both dragging or clicking the arrow.
  */
 public class Card3Activity extends AppCompatActivity {
 
@@ -12,5 +13,11 @@ public class Card3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card3);
+        if (savedInstanceState != null) {
+            return;
+        }
+        Card3Fragment card3Fragment = Card3Fragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.cardContainer, card3Fragment).commit();
     }
 }

@@ -1,67 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.davidmiguel.dragtoclose.DragToClose xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:drag="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drag_to_close"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    android:paddingEnd="12dp"
-    android:paddingStart="12dp"
-    drag:draggableContainer="@+id/card"
-    drag:draggableView="@+id/close_arrow"
-    drag:closeOnClick="true"
-    tools:context="com.davidmiguel.sample.Card1Activity">
+    android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/card"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_card_white"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/cardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp" />
 
-            <ImageView
-                android:id="@+id/close_arrow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:scaleType="center"
-                app:srcCompat="@drawable/close_down_arrow_dark" />
-
-            <TextView
-                android:id="@+id/card_title"
-                style="@style/Base.TextAppearance.AppCompat.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="@string/lorem_ipsum"
-                android:textColor="#0b88c4" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginStart="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/card_body"
-                        style="@style/Base.TextAppearance.AppCompat.Body1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lorem_text"
-                        android:textColor="#7d7d7d"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
-</com.davidmiguel.dragtoclose.DragToClose>
+</FrameLayout>

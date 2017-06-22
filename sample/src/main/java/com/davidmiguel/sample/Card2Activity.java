@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Example of dragging out card without closing activity.
+ * In this example the card can be dragged out card but the activity is not closed.
  */
 public class Card2Activity extends AppCompatActivity {
 

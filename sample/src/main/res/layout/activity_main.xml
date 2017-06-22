@@ -5,36 +5,40 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp">
 
-    <Button
-        android:id="@+id/open_card1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:onClick="openCard1"
-        android:padding="30dp"
-        android:text="@string/open_card_1" />
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/open_card2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/open_card1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:onClick="openCard2"
-        android:padding="30dp"
-        android:text="@string/open_card_2" />
+        <Button
+            android:id="@+id/open_card1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="openCard1"
+            android:padding="30dp"
+            android:text="@string/open_card_1" />
 
-    <Button
-        android:id="@+id/open_card3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/open_card2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:onClick="openCard3"
-        android:padding="30dp"
-        android:text="@string/open_card_3" />
+        <Button
+            android:id="@+id/open_card2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="openCard2"
+            android:padding="30dp"
+            android:text="@string/open_card_2" />
+
+        <Button
+            android:id="@+id/open_card3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="openCard3"
+            android:padding="30dp"
+            android:text="@string/open_card_3" />
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"

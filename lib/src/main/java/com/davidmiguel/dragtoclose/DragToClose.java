@@ -163,6 +163,36 @@ public class DragToClose extends FrameLayout {
     }
 
     /**
+     * Checks whether finish activity is activated or not.
+     */
+    public boolean isFinishActivity() {
+        return finishActivity;
+    }
+
+    /**
+     * Sets finish activity attribute. If true, the activity is closed when
+     * the view is dragged out. Default: true.
+     */
+    public void setFinishActivity(boolean finishActivity) {
+        this.finishActivity = finishActivity;
+    }
+
+    /**
+     * Checks whether close on click is activated or not.
+     */
+    public boolean isCloseOnClick() {
+        return closeOnClick;
+    }
+
+    /**
+     * Sets close on click attribute. If true, the draggable container is slided down
+     * when the draggable view is clicked. Default: false.
+     */
+    public void setCloseOnClick(boolean closeOnClick) {
+        this.closeOnClick = closeOnClick;
+    }
+
+    /**
      * Sets drag listener.
      */
     public void setDragListener(@NonNull DragListener listener) {
@@ -196,7 +226,7 @@ public class DragToClose extends FrameLayout {
         if (finishActivity) {
             Activity activity = (Activity) getContext();
             activity.finish();
-            activity.overridePendingTransition(0, android.R.anim.fade_out);
+            activity.overridePendingTransition(0, R.anim.fade_out);
         }
     }
 
@@ -242,7 +272,7 @@ public class DragToClose extends FrameLayout {
     private void initViews() {
         draggableContainer = findViewById(draggableContainerId);
         draggableView = findViewById(draggableViewId);
-        if (closeOnClick) {
+        if (closeOnClick && draggableView != null) {
             initOnClickListener(draggableView);
         }
     }

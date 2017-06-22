@@ -11,7 +11,7 @@ import com.davidmiguel.dragtoclose.DragListener;
 import com.davidmiguel.dragtoclose.DragToClose;
 
 /**
- * Example that closes the activity when the card is dragged out.
+ * In this example the activity is closed when the card is dragged out.
  */
 public class Card1Activity extends AppCompatActivity {
 
