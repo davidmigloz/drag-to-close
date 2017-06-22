@@ -15,6 +15,8 @@
  */
 package com.davidmiguel.dragtoclose;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -50,6 +52,7 @@ public class DragToClose extends FrameLayout {
     @IdRes
     private int draggableViewId;
     private boolean finishActivity;
+    private boolean closeOnClick;
 
     private View draggableContainer;
     private View draggableView;
@@ -224,6 +227,7 @@ public class DragToClose extends FrameLayout {
             draggableViewId = array.getResourceId(R.styleable.DragToClose_draggableView, -1);
             draggableContainerId = array.getResourceId(R.styleable.DragToClose_draggableContainer, -1);
             finishActivity = array.getBoolean(R.styleable.DragToClose_finishActivity, true);
+            closeOnClick = array.getBoolean(R.styleable.DragToClose_closeOnClick, false);
             if (draggableViewId == -1 || draggableContainerId == -1) {
                 throw new IllegalArgumentException("The attributes are required.");
             }
@@ -238,6 +242,26 @@ public class DragToClose extends FrameLayout {
     private void initViews() {
         draggableContainer = findViewById(draggableContainerId);
         draggableView = findViewById(draggableViewId);
+        if (closeOnClick) {
+            initOnClickListener(draggableView);
+        }
+    }
+
+    /**
+     * Initializes on OnClickListener (if need be).
+     */
+    private void initOnClickListener(View clickableView) {
+        clickableView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slideDownView(draggableContainer, getDraggableRange(), new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        closeActivity();
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -269,5 +293,12 @@ public class DragToClose extends FrameLayout {
      */
     private float getVerticalDragOffset() {
         return (float) Math.abs(draggableContainer.getTop()) / (float) getHeight();
+    }
+
+    /**
+     * Slides down a view.
+     */
+    private void slideDownView(View view, int y, Animator.AnimatorListener listener) {
+        view.animate().translationY(y).alpha(0.0f).setListener(listener);
     }
 }

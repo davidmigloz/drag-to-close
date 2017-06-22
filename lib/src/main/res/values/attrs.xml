@@ -4,5 +4,6 @@
         <attr name="draggableView" format="reference" />
         <attr name="draggableContainer" format="reference" />
         <attr name="finishActivity" format="boolean" />
+        <attr name="closeOnClick" format="boolean" />
     </declare-styleable>
 </resources>

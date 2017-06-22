@@ -24,4 +24,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_up, 0);
     }
+
+    public void openCard3(View view) {
+        Intent intent = new Intent(this, Card3Activity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_up, 0);
+    }
 }
