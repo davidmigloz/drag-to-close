@@ -2,7 +2,7 @@
 
 Android library that provides a view group which allows to finish an activity by dragging a view.
 
-![image](img/screenshot.webp)
+![image](img/screenshot.gif)
 
 ## Usage
 
