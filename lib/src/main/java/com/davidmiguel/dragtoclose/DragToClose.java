@@ -15,8 +15,6 @@
  */
 package com.davidmiguel.dragtoclose;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -56,6 +54,9 @@ public class DragToClose extends FrameLayout {
 
     private View draggableContainer;
     private View draggableView;
+    private int draggableContainerTop;
+    private int draggableContainerLeft;
+
     private ViewDragHelper dragHelper;
     private DragListener listener;
 
@@ -185,18 +186,38 @@ public class DragToClose extends FrameLayout {
     }
 
     /**
-     * Sets close on click attribute. If true, the draggable container is slided down
+     * Sets close on click attribute. If true, the draggable container is slid down
      * when the draggable view is clicked. Default: false.
      */
     public void setCloseOnClick(boolean closeOnClick) {
+        if(closeOnClick) {
+            initOnClickListener(draggableView);
+        } else {
+            draggableView.setOnClickListener(null);
+        }
         this.closeOnClick = closeOnClick;
     }
 
     /**
      * Sets drag listener.
      */
-    public void setDragListener(@NonNull DragListener listener) {
+    public void setDragListener(DragListener listener) {
         this.listener = listener;
+    }
+
+    /**
+     * Slides down draggable container out of the DragToClose view.
+     */
+    public void closeDraggableContainer() {
+        slideViewTo(draggableContainer, getPaddingLeft() + draggableContainerLeft, getDraggableRange());
+    }
+
+    /**
+     * Slides up draggable container to its original position.
+     */
+    public void openDraggableContainer() {
+        slideViewTo(draggableContainer, getPaddingLeft() + draggableContainerLeft,
+                getPaddingTop() + draggableContainerTop);
     }
 
     /**
@@ -259,7 +280,7 @@ public class DragToClose extends FrameLayout {
             finishActivity = array.getBoolean(R.styleable.DragToClose_finishActivity, true);
             closeOnClick = array.getBoolean(R.styleable.DragToClose_closeOnClick, false);
             if (draggableViewId == -1 || draggableContainerId == -1) {
-                throw new IllegalArgumentException("The attributes are required.");
+                throw new IllegalArgumentException("draggableView and draggableContainer attributes are required.");
             }
         } finally {
             array.recycle();
@@ -271,6 +292,8 @@ public class DragToClose extends FrameLayout {
      */
     private void initViews() {
         draggableContainer = findViewById(draggableContainerId);
+        draggableContainerTop = draggableContainer.getTop();
+        draggableContainerLeft = draggableContainer.getLeft();
         draggableView = findViewById(draggableViewId);
         if (closeOnClick && draggableView != null) {
             initOnClickListener(draggableView);
@@ -284,12 +307,7 @@ public class DragToClose extends FrameLayout {
         clickableView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                slideDownView(draggableContainer, getDraggableRange(), new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        closeActivity();
-                    }
-                });
+                closeDraggableContainer();
             }
         });
     }
@@ -328,7 +346,8 @@ public class DragToClose extends FrameLayout {
     /**
      * Slides down a view.
      */
-    private void slideDownView(View view, int y, Animator.AnimatorListener listener) {
-        view.animate().translationY(y).alpha(0.0f).setListener(listener);
+    private void slideViewTo(View view, int left, int top) {
+        dragHelper.smoothSlideViewTo(view, left, top);
+        invalidate();
     }
 }
