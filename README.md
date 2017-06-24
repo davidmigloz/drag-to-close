@@ -33,7 +33,7 @@ dependencies {
 
 Use `DragToClose` view group to your layout:
 
-```
+```xml
 <com.davidmiguel.dragtoclose.DragToClose
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:drag="http://schemas.android.com/apk/res-auto"
@@ -75,7 +75,7 @@ If you want to listen to dragging events, you can use `DragListener`:
 - `onStartDraggingView()`: invoked when the view has just started to be dragged.
 - `onViewCosed()`: invoked when the view has being dragged out of the screen and just before calling `activity.finish()`` (if need be).
 
-```
+```java
 dragToClose.setDragListener(new DragListener() {
     @Override
     public void onStartDraggingView() {...}
