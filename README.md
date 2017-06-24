@@ -93,7 +93,7 @@ Take a look at the [sample app](https://github.com/davidmigloz/drag-to-close/tre
 - [DraggablePanel](https://github.com/pedrovgs/DraggablePanel): Android library used to create an awesome Android UI based on a draggable element similar to the last YouTube graphic component.
 - [SwipeBack](https://github.com/liuguangqiang/SwipeBack): Android library that can finish a activity by using gesture.
 
-# Contributing
+## Contributing
 
 If you find any issues or you have any questions, ideas... feel free to [open an issue](https://github.com/davidmigloz/drag-to-close/issues/new).
 Pull request are very appreciated.
