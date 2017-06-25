@@ -73,7 +73,7 @@ Use `DragToClose` view group to your layout:
 If you want to listen to dragging events, you can use `DragListener`:
 
 - `onStartDraggingView()`: invoked when the view has just started to be dragged.
-- `onViewCosed()`: invoked when the view has being dragged out of the screen and just before calling `activity.finish()`` (if need be).
+- `onViewCosed()`: invoked when the view has being dragged out of the screen and just before calling `activity.finish()` (if need be).
 
 ```java
 dragToClose.setDragListener(new DragListener() {
