@@ -292,10 +292,16 @@ public class DragToClose extends FrameLayout {
      */
     private void initViews() {
         draggableContainer = findViewById(draggableContainerId);
+        if(draggableContainer == null) {
+            throw new IllegalArgumentException("draggableContainer not found!");
+        }
         draggableContainerTop = draggableContainer.getTop();
         draggableContainerLeft = draggableContainer.getLeft();
         draggableView = findViewById(draggableViewId);
-        if (closeOnClick && draggableView != null) {
+        if(draggableView == null) {
+            throw new IllegalArgumentException("draggableView not found!");
+        }
+        if (closeOnClick) {
             initOnClickListener(draggableView);
         }
     }

@@ -18,7 +18,7 @@ public class Card2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card2);
-        dragToClose = (DragToClose) findViewById(R.id.drag_to_close);
+        dragToClose = findViewById(R.id.drag_to_close);
     }
 
     public void openCard(View view) {

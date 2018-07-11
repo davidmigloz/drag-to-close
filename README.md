@@ -25,7 +25,7 @@ Add the dependency:
 
 ```gradle
 dependencies {
-	compile 'com.github.davidmigloz:drag-to-close:0.1'
+	implementation 'com.github.davidmigloz:drag-to-close:1.0'
 }
 ```
 
@@ -100,7 +100,7 @@ Pull request are very appreciated.
 
 ## License
 
-Copyright (c) 2017 David Miguel Lozano
+Copyright (c) 2018 David Miguel Lozano
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

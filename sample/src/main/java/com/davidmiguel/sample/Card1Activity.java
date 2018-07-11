@@ -22,7 +22,7 @@ public class Card1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card1);
 
-        final DragToClose dragToClose = (DragToClose) findViewById(R.id.drag_to_close);
+        final DragToClose dragToClose = findViewById(R.id.drag_to_close);
         dragToClose.setDragListener(new DragListener() {
             @Override
             public void onStartDraggingView() {
@@ -34,7 +34,7 @@ public class Card1Activity extends AppCompatActivity {
                 Log.d(TAG, "onViewCosed()");
             }
         });
-        Button btn = (Button) findViewById(R.id.btn);
+        Button btn = findViewById(R.id.btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
