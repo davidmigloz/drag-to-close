@@ -25,7 +25,7 @@ Add the dependency:
 
 ```gradle
 dependencies {
-	implementation 'com.github.davidmigloz:drag-to-close:1.0'
+	implementation 'com.github.davidmigloz:drag-to-close:0.1'
 }
 ```
 
