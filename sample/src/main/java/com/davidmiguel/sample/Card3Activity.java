@@ -1,7 +1,8 @@
 package com.davidmiguel.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * In this example, DragToClose is used inside a fragment and the user can

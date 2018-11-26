@@ -15,8 +15,10 @@
  */
 package com.davidmiguel.dragtoclose;
 
-import android.support.v4.widget.ViewDragHelper;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.customview.widget.ViewDragHelper;
 
 import static com.davidmiguel.dragtoclose.DragToClose.HEIGHT_THRESHOLD_TO_CLOSE;
 import static com.davidmiguel.dragtoclose.DragToClose.SPEED_THRESHOLD_TO_CLOSE;
@@ -71,7 +73,7 @@ class DragHelperCallback extends ViewDragHelper.Callback {
      * based on the vertical position while the view is being vertical dragged.
      */
     @Override
-    public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+    public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
         topBorderDraggableContainer = top;
         dragToClose.changeDragViewViewAlpha();
     }
@@ -83,7 +85,7 @@ class DragHelperCallback extends ViewDragHelper.Callback {
      * Else if the top
      */
     @Override
-    public void onViewReleased(View releasedChild, float xVel, float yVel) {
+    public void onViewReleased(@NonNull View releasedChild, float xVel, float yVel) {
         // If view is in its original position or out of range, don't do anything
         if (topBorderDraggableContainer == 0 || topBorderDraggableContainer >= dragToClose.getDraggableRange()) {
             return;
@@ -108,7 +110,7 @@ class DragHelperCallback extends ViewDragHelper.Callback {
      * Sets the vertical draggable range.
      */
     @Override
-    public int getViewVerticalDragRange(View child) {
+    public int getViewVerticalDragRange(@NonNull View child) {
         return dragToClose.getDraggableRange();
     }
 
@@ -116,7 +118,7 @@ class DragHelperCallback extends ViewDragHelper.Callback {
      * Configures which is going to be the draggable container.
      */
     @Override
-    public boolean tryCaptureView(View child, int pointerId) {
+    public boolean tryCaptureView(@NonNull View child, int pointerId) {
         return child.equals(draggableContainer);
     }
 
@@ -125,7 +127,7 @@ class DragHelperCallback extends ViewDragHelper.Callback {
      * DragToClose padding must be taken into consideration.
      */
     @Override
-    public int clampViewPositionHorizontal(View child, int left, int dx) {
+    public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
         return child.getLeft();
     }
 
@@ -133,7 +135,7 @@ class DragHelperCallback extends ViewDragHelper.Callback {
      * Defines clamped position for top border.
      */
     @Override
-    public int clampViewPositionVertical(View child, int top, int dy) {
+    public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
         final int topBound = dragToClose.getPaddingTop(); // Top limit
         final int bottomBound = dragToClose.getDraggableRange(); // Bottom limit
         return Math.min(Math.max(top, topBound), bottomBound);

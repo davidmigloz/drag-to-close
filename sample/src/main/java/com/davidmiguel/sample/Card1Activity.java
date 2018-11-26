@@ -1,13 +1,14 @@
 package com.davidmiguel.sample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.davidmiguel.dragtoclose.DragListener;
 import com.davidmiguel.dragtoclose.DragToClose;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * In this example the activity is closed when the card is dragged out.

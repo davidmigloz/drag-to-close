@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 28
+        versionCode 3
+        versionName "0.3.0"
     }
     buildTypes {
         release {
@@ -19,5 +19,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'androidx.core:core:1.0.1'
+    implementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'androidx.customview:customview:1.0.0'
 }
