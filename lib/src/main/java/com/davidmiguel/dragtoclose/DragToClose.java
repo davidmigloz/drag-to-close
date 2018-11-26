@@ -61,6 +61,7 @@ public class DragToClose extends FrameLayout {
     private DragListener listener;
 
     private int verticalDraggableRange;
+    private boolean uiBlocked;
 
     public DragToClose(@NonNull Context context) {
         super(context);
@@ -101,6 +102,9 @@ public class DragToClose extends FrameLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
+        if(uiBlocked) {
+            return true; // Don't propagate event when ui blocked
+        }
         boolean handled = false;
         if (isEnabled()) {
             handled = dragHelper.shouldInterceptTouchEvent(event)
@@ -117,6 +121,9 @@ public class DragToClose extends FrameLayout {
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(uiBlocked) {
+            return true; // Ignore event when ui blocked
+        }
         dragHelper.processTouchEvent(event);
         return isViewTouched(draggableView, (int) event.getX(), (int) event.getY());
     }
@@ -209,6 +216,7 @@ public class DragToClose extends FrameLayout {
      * Slides down draggable container out of the DragToClose view.
      */
     public void closeDraggableContainer() {
+        uiBlocked = true;
         slideViewTo(draggableContainer, getPaddingLeft() + draggableContainerLeft, getDraggableRange());
     }
 
@@ -218,6 +226,7 @@ public class DragToClose extends FrameLayout {
     public void openDraggableContainer() {
         slideViewTo(draggableContainer, getPaddingLeft() + draggableContainerLeft,
                 getPaddingTop() + draggableContainerTop);
+        uiBlocked = false;
     }
 
     /**
@@ -282,6 +291,7 @@ public class DragToClose extends FrameLayout {
             if (draggableViewId == -1 || draggableContainerId == -1) {
                 throw new IllegalArgumentException("draggableView and draggableContainer attributes are required.");
             }
+            uiBlocked = false;
         } finally {
             array.recycle();
         }
