@@ -1,5 +1,9 @@
 # Changelog drag-to-close
 
+## `1.0.0` (xx/12/18)
+
+- Migrate project to Kotlin #22
+
 ## `0.3.1` (26/11/18)
 
 - Card gets stuck if you touch it while it's been closed programmatically #20

@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.davidmiguel.dragtoclose;
+package com.davidmiguel.dragtoclose
 
 /**
  * Enables to listen drag events.
  */
-public interface DragListener {
+interface DragListener {
 
     /**
      * Invoked when the view has just started to be dragged.
      */
-    void onStartDraggingView();
+    fun onStartDraggingView()
 
     /**
      * Invoked when the view has being dragged out of the screen
      * and just before calling activity.finish().
      */
-    void onViewCosed();
+    fun onViewCosed()
 }

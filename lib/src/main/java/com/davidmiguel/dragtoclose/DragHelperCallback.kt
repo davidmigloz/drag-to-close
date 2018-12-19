@@ -13,69 +13,57 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.davidmiguel.dragtoclose;
+package com.davidmiguel.dragtoclose
 
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.customview.widget.ViewDragHelper;
-
-import static com.davidmiguel.dragtoclose.DragToClose.HEIGHT_THRESHOLD_TO_CLOSE;
-import static com.davidmiguel.dragtoclose.DragToClose.SPEED_THRESHOLD_TO_CLOSE;
+import android.view.View
+import androidx.customview.widget.ViewDragHelper
+import com.davidmiguel.dragtoclose.DragToClose.Companion.HEIGHT_THRESHOLD_TO_CLOSE
+import com.davidmiguel.dragtoclose.DragToClose.Companion.SPEED_THRESHOLD_TO_CLOSE
 
 /**
  * Dragging controller.
  */
-class DragHelperCallback extends ViewDragHelper.Callback {
+internal class DragHelperCallback(private val dragToClose: DragToClose,
+                                  private val draggableContainer: View) : ViewDragHelper.Callback() {
 
-    private DragToClose dragToClose;
-    private View draggableContainer;
+    private var lastDraggingState: Int = 0
+    private var topBorderDraggableContainer: Int = 0
 
-    private int lastDraggingState;
-    private int topBorderDraggableContainer;
-
-    DragHelperCallback(DragToClose dragToClose, View draggableContainer) {
-        this.dragToClose = dragToClose;
-        this.draggableContainer = draggableContainer;
-        lastDraggingState = ViewDragHelper.STATE_IDLE;
+    init {
+        lastDraggingState = ViewDragHelper.STATE_IDLE
     }
 
     /**
      * Checks dragging states and notifies them.
      */
-    @Override
-    public void onViewDragStateChanged(int state) {
+    override fun onViewDragStateChanged(state: Int) {
         // If no state change, don't do anything
-        if (state == lastDraggingState) {
-            return;
-        }
+        if (state == lastDraggingState) return
         // If last state was dragging or settling and current state is idle,
         // the view has stopped moving. If the top border of the container is
         // equal to the vertical draggable range, the view has being dragged out,
         // so close activity is called
         if ((lastDraggingState == ViewDragHelper.STATE_DRAGGING
-                || lastDraggingState == ViewDragHelper.STATE_SETTLING)
+                        || lastDraggingState == ViewDragHelper.STATE_SETTLING)
                 && state == ViewDragHelper.STATE_IDLE
                 && topBorderDraggableContainer == dragToClose.getDraggableRange()) {
-            dragToClose.closeActivity();
-
+            dragToClose.closeActivity()
         }
         // If the view has just started being dragged, notify event
         if (state == ViewDragHelper.STATE_DRAGGING) {
-            dragToClose.onStartDraggingView();
+            dragToClose.onStartDraggingView()
         }
         // Save current state
-        lastDraggingState = state;
+        lastDraggingState = state
     }
 
     /**
      * Registers draggable container position and changes the transparency of the container
      * based on the vertical position while the view is being vertical dragged.
      */
-    @Override
-    public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
-        topBorderDraggableContainer = top;
-        dragToClose.changeDragViewViewAlpha();
+    override fun onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
+        topBorderDraggableContainer = top
+        dragToClose.changeDragViewViewAlpha()
     }
 
     /**
@@ -84,60 +72,49 @@ class DragHelperCallback extends ViewDragHelper.Callback {
      * If the speed is greater than SPEED_THRESHOLD_TO_CLOSE the view is settled to closed.
      * Else if the top
      */
-    @Override
-    public void onViewReleased(@NonNull View releasedChild, float xVel, float yVel) {
+    override fun onViewReleased(releasedChild: View, xVel: Float, yVel: Float) {
         // If view is in its original position or out of range, don't do anything
         if (topBorderDraggableContainer == 0 || topBorderDraggableContainer >= dragToClose.getDraggableRange()) {
-            return;
+            return
         }
-        boolean settleToClosed = false;
+        var settleToClosed = false
         // Check speed
         if (yVel > SPEED_THRESHOLD_TO_CLOSE) {
-            settleToClosed = true;
+            settleToClosed = true
         } else {
             // Check position
-            int verticalDraggableThreshold = (int) (dragToClose.getDraggableRange() * HEIGHT_THRESHOLD_TO_CLOSE);
+            val verticalDraggableThreshold = (dragToClose.getDraggableRange() * HEIGHT_THRESHOLD_TO_CLOSE).toInt()
             if (topBorderDraggableContainer > verticalDraggableThreshold) {
-                settleToClosed = true;
+                settleToClosed = true
             }
         }
         // If settle to closed -> moved view out of the screen
-        int settleDestY = settleToClosed ? dragToClose.getDraggableRange() : 0;
-        dragToClose.smoothScrollToY(settleDestY);
+        val settleDestY = if (settleToClosed) dragToClose.getDraggableRange() else 0
+        dragToClose.smoothScrollToY(settleDestY)
     }
 
     /**
      * Sets the vertical draggable range.
      */
-    @Override
-    public int getViewVerticalDragRange(@NonNull View child) {
-        return dragToClose.getDraggableRange();
-    }
+    override fun getViewVerticalDragRange(child: View): Int = dragToClose.getDraggableRange()
 
     /**
      * Configures which is going to be the draggable container.
      */
-    @Override
-    public boolean tryCaptureView(@NonNull View child, int pointerId) {
-        return child.equals(draggableContainer);
-    }
+    override fun tryCaptureView(child: View, pointerId: Int): Boolean = child == draggableContainer
 
     /**
      * Defines clamped position for left border.
      * DragToClose padding must be taken into consideration.
      */
-    @Override
-    public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
-        return child.getLeft();
-    }
+    override fun clampViewPositionHorizontal(child: View, left: Int, dx: Int): Int = child.left
 
     /**
      * Defines clamped position for top border.
      */
-    @Override
-    public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
-        final int topBound = dragToClose.getPaddingTop(); // Top limit
-        final int bottomBound = dragToClose.getDraggableRange(); // Bottom limit
-        return Math.min(Math.max(top, topBound), bottomBound);
+    override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
+        val topBound = dragToClose.paddingTop // Top limit
+        val bottomBound = dragToClose.getDraggableRange() // Bottom limit
+        return Math.min(Math.max(top, topBound), bottomBound)
     }
 }
