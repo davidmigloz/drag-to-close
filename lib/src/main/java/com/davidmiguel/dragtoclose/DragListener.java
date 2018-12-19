@@ -30,4 +30,11 @@ public interface DragListener {
      * and just before calling activity.finish().
      */
     void onViewCosed();
+
+    /**
+     * Invoked during the view is dragging.
+     *
+     * @param dragOffset vertical drag offset between 0 and 1.
+     */
+    void onDragging(float dragOffset);
 }

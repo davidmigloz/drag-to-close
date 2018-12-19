@@ -34,6 +34,11 @@ public class Card1Activity extends AppCompatActivity {
             public void onViewCosed() {
                 Log.d(TAG, "onViewCosed()");
             }
+
+            @Override
+            public void onDragging(float dragOffset) {
+                Log.d(TAG, String.format("onDragging(%.2f)", dragOffset));
+            }
         });
         Button btn = findViewById(R.id.btn);
         btn.setOnClickListener(new View.OnClickListener() {

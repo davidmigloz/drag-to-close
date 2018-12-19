@@ -265,7 +265,11 @@ public class DragToClose extends FrameLayout {
      * vertical dragged.
      */
     void changeDragViewViewAlpha() {
-        draggableContainer.setAlpha(1 - getVerticalDragOffset());
+        final float dragOffset = getVerticalDragOffset();
+        draggableContainer.setAlpha(1 - dragOffset);
+        if (listener != null) {
+            listener.onDragging(dragOffset);
+        }
     }
 
     /**
