@@ -2,26 +2,27 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
+ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
+ext.versionMinor = 0 // New features in a backwards-compatible manner
+ext.versionPatch = 0 // Backwards-compatible bug fixes
+ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
+
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdkVersion androidConfig.compileSdkVersion
+    buildToolsVersion androidConfig.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 10000
-        versionName "1.0.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+        minSdkVersion androidConfig.minSdkVersion
+        targetSdkVersion androidConfig.targetSdkVersion
+        versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
+        versionName generateVersionName(versionMajor, versionMinor, versionPatch, versionClassifier)
+        consumerProguardFiles 'proguard-rules.pro'
     }
 }
 
 dependencies {
-    implementation 'androidx.core:core:1.0.1'
-    implementation 'androidx.annotation:annotation:1.0.1'
-    implementation 'androidx.customview:customview:1.0.0'
+    implementation appDependencies.androidXCore
+    implementation appDependencies.annotations
+    implementation appDependencies.customView
+    implementation appDependencies.kotlinStdlib
 }

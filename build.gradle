@@ -1,11 +1,14 @@
+apply from: 'configurations.gradle'
+
 buildscript {
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0-alpha08'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.10"
+        apply from: 'dependencies.gradle'
+        classpath gradleDependencies.androidGradle
+        classpath gradleDependencies.kotlinGradle
     }
 }
 
