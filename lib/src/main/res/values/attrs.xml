@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="DragToClose">
-        <attr name="draggableView" format="reference" />
-        <attr name="draggableContainer" format="reference" />
-        <attr name="finishActivity" format="boolean" />
-        <attr name="closeOnClick" format="boolean" />
+        <attr name="dragtoclose_draggableView" format="reference" />
+        <attr name="dragtoclose_draggableContainer" format="reference" />
+        <attr name="dragtoclose_finishActivity" format="boolean" />
+        <attr name="dragtoclose_closeOnClick" format="boolean" />
     </declare-styleable>
 </resources>

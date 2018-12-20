@@ -1,8 +1,18 @@
 # Changelog drag-to-close
 
-## `1.0.0` (xx/12/18)
+## `1.0.0` (20/12/18)
 
 - Migrate project to Kotlin #22
+- Add dragtoclose_ resource prefix #24 (Breaking change)
+
+### Migration
+
+Add the prefix `dragtoclose_` to all the library attributes.
+E.g.
+```
+Before:  drag:draggableContainer="@+id/card"
+Now:     drag:dragtoclose_draggableContainer="@+id/card"
+```
 
 ## `0.3.1` (26/11/18)
 

@@ -218,7 +218,7 @@ class DragToClose : FrameLayout {
         if (finishActivity) {
             val activity = context as Activity
             activity.finish()
-            activity.overridePendingTransition(0, R.anim.fade_out)
+            activity.overridePendingTransition(0, R.anim.dragtoclose_fade_out)
         }
     }
 
@@ -245,10 +245,10 @@ class DragToClose : FrameLayout {
     private fun initializeAttributes(attrs: AttributeSet?) {
         val array = context.theme.obtainStyledAttributes(attrs, R.styleable.DragToClose, 0, 0)
         try {
-            draggableViewId = array.getResourceId(R.styleable.DragToClose_draggableView, -1)
-            draggableContainerId = array.getResourceId(R.styleable.DragToClose_draggableContainer, -1)
-            finishActivity = array.getBoolean(R.styleable.DragToClose_finishActivity, true)
-            closeOnClick = array.getBoolean(R.styleable.DragToClose_closeOnClick, false)
+            draggableViewId = array.getResourceId(R.styleable.DragToClose_dragtoclose_draggableView, -1)
+            draggableContainerId = array.getResourceId(R.styleable.DragToClose_dragtoclose_draggableContainer, -1)
+            finishActivity = array.getBoolean(R.styleable.DragToClose_dragtoclose_finishActivity, true)
+            closeOnClick = array.getBoolean(R.styleable.DragToClose_dragtoclose_closeOnClick, false)
             if (draggableViewId == -1 || draggableContainerId == -1) {
                 throw IllegalArgumentException("draggableView and draggableContainer attributes are required.")
             }
@@ -312,20 +312,20 @@ class DragToClose : FrameLayout {
     /**
      * Slides down a view.
      */
-    private fun slideViewTo(view: View?, left: Int, top: Int) {
-        dragHelper.smoothSlideViewTo(view!!, left, top)
+    private fun slideViewTo(view: View, left: Int, top: Int) {
+        dragHelper.smoothSlideViewTo(view, left, top)
         invalidate()
     }
 
     companion object {
 
         // Sensitivity detecting the start of a drag (larger values are more sensitive)
-        private val DRAG_SENSITIVITY = 1.0f
+        private const val DRAG_SENSITIVITY = 1.0f
         // If the view is dragged with a higher speed than the threshold, the view is
         // closed automatically
-        internal val SPEED_THRESHOLD_TO_CLOSE = 800.0f
+        internal const val SPEED_THRESHOLD_TO_CLOSE = 800.0f
         // If dragging finishes below this threshold the view returns to its original position,
         // if the threshold is exceeded, the view is closed automatically
-        internal val HEIGHT_THRESHOLD_TO_CLOSE = 0.5f
+        internal const val HEIGHT_THRESHOLD_TO_CLOSE = 0.5f
     }
 }

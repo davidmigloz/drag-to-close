@@ -18,6 +18,8 @@ android {
         versionName generateVersionName(versionMajor, versionMinor, versionPatch, versionClassifier)
         consumerProguardFiles 'proguard-rules.pro'
     }
+
+    resourcePrefix 'dragtoclose_'
 }
 
 dependencies {

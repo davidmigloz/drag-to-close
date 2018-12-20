@@ -6,9 +6,9 @@
     android:id="@+id/drag_to_close"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    drag:draggableContainer="@+id/card"
-    drag:draggableView="@+id/close_arrow"
-    drag:closeOnClick="true">
+    drag:dragtoclose_draggableContainer="@+id/card"
+    drag:dragtoclose_draggableView="@+id/close_arrow"
+    drag:dragtoclose_closeOnClick="true">
 
     <LinearLayout
         android:id="@+id/card"

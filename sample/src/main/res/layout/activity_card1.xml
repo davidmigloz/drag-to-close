@@ -10,8 +10,8 @@
     android:background="#000000"
     android:paddingEnd="12dp"
     android:paddingStart="12dp"
-    drag:draggableContainer="@+id/card"
-    drag:draggableView="@+id/close_arrow"
+    drag:dragtoclose_draggableContainer="@+id/card"
+    drag:dragtoclose_draggableView="@+id/close_arrow"
     tools:context="com.davidmiguel.sample.Card1Activity">
 
     <LinearLayout
