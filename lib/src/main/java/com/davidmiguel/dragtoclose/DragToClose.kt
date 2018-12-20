@@ -15,6 +15,7 @@
  */
 package com.davidmiguel.dragtoclose
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import androidx.annotation.AttrRes
@@ -99,6 +100,7 @@ class DragToClose : FrameLayout {
      * Dispatches touch event to the draggable view.
      * The touch is realized only if is over the draggable view.
      */
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (uiBlocked) return true // Ignore event when ui blocked
         dragHelper.processTouchEvent(event)
@@ -223,11 +225,20 @@ class DragToClose : FrameLayout {
     }
 
     /**
+     * Invoked when the view position changes.
+     */
+    internal fun onViewPositionChanged() {
+        val verticalDragOffset = getVerticalDragOffset()
+        changeDragViewViewAlpha(verticalDragOffset)
+        listener?.onDragging(verticalDragOffset)
+    }
+
+    /**
      * Modify dragged view alpha based on the vertical position while the view is being
      * vertical dragged.
      */
-    internal fun changeDragViewViewAlpha() {
-        draggableContainer.alpha = 1 - getVerticalDragOffset()
+    internal fun changeDragViewViewAlpha(verticalDragOffset: Float) {
+        draggableContainer.alpha = 1 - verticalDragOffset
     }
 
     /**

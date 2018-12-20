@@ -26,6 +26,13 @@ interface DragListener {
     fun onStartDraggingView()
 
     /**
+     * Invoked when the view is being dragged.
+     *
+     * @param dragOffset vertical drag offset between 0 (start) and 1 (end).
+     */
+    fun onDragging(dragOffset: Float)
+
+    /**
      * Invoked when the view has being dragged out of the screen
      * and just before calling activity.finish().
      */

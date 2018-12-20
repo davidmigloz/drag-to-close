@@ -3,7 +3,8 @@
 ## `1.0.0` (20/12/18)
 
 - Migrate project to Kotlin #22
-- Add dragtoclose_ resource prefix #24 (Breaking change)
+- Add dragtoclose_ resource prefix #24 (breaking change)
+- Add onDragging(dragOffset) callback method #21 (breaking change)
 
 ### Migration
 
@@ -13,6 +14,8 @@ E.g.
 Before:  drag:draggableContainer="@+id/card"
 Now:     drag:dragtoclose_draggableContainer="@+id/card"
 ```
+
+Add the new method `onDragging(dragOffset)` to your  `DragListener`
 
 ## `0.3.1` (26/11/18)
 

@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
  */
 class Card1Activity : AppCompatActivity() {
 
+    private val tag = "Card1Activity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card1)
@@ -22,19 +24,18 @@ class Card1Activity : AppCompatActivity() {
         val dragToClose = findViewById<DragToClose>(R.id.drag_to_close)
         dragToClose.setDragListener(object : DragListener {
             override fun onStartDraggingView() {
-                Log.d(TAG, "onStartDraggingView()")
+                Log.d(tag, "onStartDraggingView()")
+            }
+
+            override fun onDragging(dragOffset: Float) {
+                Log.d(tag, "onDragging(): $dragOffset")
             }
 
             override fun onViewCosed() {
-                Log.d(TAG, "onViewCosed()")
+                Log.d(tag, "onViewCosed()")
             }
         })
         val btn = findViewById<Button>(R.id.btn)
         btn.setOnClickListener { dragToClose.closeDraggableContainer() }
-    }
-
-    companion object {
-
-        private val TAG = "Card1Activity"
     }
 }

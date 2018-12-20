@@ -63,7 +63,7 @@ internal class DragHelperCallback(private val dragToClose: DragToClose,
      */
     override fun onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
         topBorderDraggableContainer = top
-        dragToClose.changeDragViewViewAlpha()
+        dragToClose.onViewPositionChanged()
     }
 
     /**

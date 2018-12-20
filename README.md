@@ -25,9 +25,11 @@ Add the dependency:
 
 ```gradle
 dependencies {
-	implementation 'com.github.davidmigloz:drag-to-close:0.1'
+	implementation 'com.github.davidmigloz:drag-to-close:1.0.0'
 }
 ```
+
+[CHANGELOG](https://github.com/davidmigloz/drag-to-close/blob/master/CHANGELOG.md)
 
 #### Step 3
 
@@ -38,10 +40,10 @@ Use `DragToClose` view group to your layout:
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:drag="http://schemas.android.com/apk/res-auto"
     ...
-    drag:draggableContainer="@+id/card"
-    drag:draggableView="@+id/close_arrow"
-    drag:finishActivity="false"
-    drag:closeOnClick="true">
+    drag:dragtoclose_draggableContainer="@+id/card"
+    drag:dragtoclose_draggableView="@+id/close_arrow"
+    drag:dragtoclose_finishActivity="false"
+    drag:dragtoclose_closeOnClick="true">
 
     ...
 </com.davidmiguel.dragtoclose.DragToClose>  
@@ -49,10 +51,10 @@ Use `DragToClose` view group to your layout:
 
 #### Attributes
 
-- `drag:draggableContainer="[reference]"` (required): view that is going to be dragged (in the example, the card).
-- `drag:draggableView="[reference]"` (required): view that is going to listen to draggable events (in the example, the arrow).
-- `drag:finishActivity="[true|false]"` (default: `true`): when the `draggableContainer` is dragged out of the `DragToClose` view, the activity is finished (`activity.finish()` is called).
-- `drag:closeOnClick="[true|false]"` (default: `false`): when the `draggableView` is clicked, `draggableContainer` is slid down out of the `DragToClose` view automatically (`activity.finish()` is called if need be).
+- `drag:dragtoclose_draggableContainer="[reference]"` (required): view that is going to be dragged (in the example, the card).
+- `drag:dragtoclose_draggableView="[reference]"` (required): view that is going to listen to draggable events (in the example, the arrow).
+- `drag:dragtoclose_finishActivity="[true|false]"` (default: `true`): when the `draggableContainer` is dragged out of the `DragToClose` view, the activity is finished (`activity.finish()` is called).
+- `drag:dragtoclose_closeOnClick="[true|false]"` (default: `false`): when the `draggableView` is clicked, `draggableContainer` is slid down out of the `DragToClose` view automatically (`activity.finish()` is called if need be).
 
 #### Methods
 
@@ -73,16 +75,15 @@ Use `DragToClose` view group to your layout:
 If you want to listen to dragging events, you can use `DragListener`:
 
 - `onStartDraggingView()`: invoked when the view has just started to be dragged.
+- `onDragging(dragOffset)`: invoked when the view is being dragged.
 - `onViewCosed()`: invoked when the view has being dragged out of the screen and just before calling `activity.finish()` (if need be).
 
-```java
-dragToClose.setDragListener(new DragListener() {
-    @Override
-    public void onStartDraggingView() {...}
-
-    @Override
-    public void onViewCosed() {...}
-});
+```kotlin
+dragToClose.setDragListener(object : DragListener {
+    override fun onStartDraggingView() {...}
+    override fun onDragging(dragOffset: Float) {...}
+    override fun onViewCosed() {...}
+})
 ```
 
 Take a look at the [sample app](https://github.com/davidmigloz/drag-to-close/tree/master/sample) to see the library working.
