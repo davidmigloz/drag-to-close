@@ -23,15 +23,13 @@ import com.davidmiguel.dragtoclose.DragToClose.Companion.SPEED_THRESHOLD_TO_CLOS
 /**
  * Dragging controller.
  */
-internal class DragHelperCallback(private val dragToClose: DragToClose,
-                                  private val draggableContainer: View) : ViewDragHelper.Callback() {
+internal class DragHelperCallback(
+        private val dragToClose: DragToClose,
+        private val draggableContainer: View
+) : ViewDragHelper.Callback() {
 
-    private var lastDraggingState: Int = 0
+    private var lastDraggingState: Int = ViewDragHelper.STATE_IDLE
     private var topBorderDraggableContainer: Int = 0
-
-    init {
-        lastDraggingState = ViewDragHelper.STATE_IDLE
-    }
 
     /**
      * Checks dragging states and notifies them.
@@ -46,7 +44,7 @@ internal class DragHelperCallback(private val dragToClose: DragToClose,
         if ((lastDraggingState == ViewDragHelper.STATE_DRAGGING
                         || lastDraggingState == ViewDragHelper.STATE_SETTLING)
                 && state == ViewDragHelper.STATE_IDLE
-                && topBorderDraggableContainer == dragToClose.getDraggableRange()) {
+                && topBorderDraggableContainer >= dragToClose.getDraggableRange()) {
             dragToClose.closeActivity()
         }
         // If the view has just started being dragged, notify event
