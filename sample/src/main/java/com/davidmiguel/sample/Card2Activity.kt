@@ -21,6 +21,7 @@ class Card2Activity : AppCompatActivity() {
         dragToClose = findViewById(R.id.drag_to_close)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun openCard(view: View) {
         dragToClose.openDraggableContainer()
     }
