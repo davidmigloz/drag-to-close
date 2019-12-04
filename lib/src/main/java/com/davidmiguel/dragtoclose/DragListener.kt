@@ -27,6 +27,9 @@ interface DragListener {
 
     /**
      * Invoked when the view is being dragged.
+     * By default it's called only when the user is dragging the view.
+     * If you also want to be notified when the view is dragged programatically use
+     * `DragToClose.setAlwaysNotifyOnDragging(true)`.
      *
      * @param dragOffset vertical drag offset between 0 (start) and 1 (end).
      */

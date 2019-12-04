@@ -26,6 +26,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
+import kotlin.math.abs
 
 /**
  * View group that extends FrameLayout and allows to finish an activity dragging down a view.
@@ -48,7 +49,7 @@ class DragToClose : FrameLayout {
 
     private lateinit var dragHelper: ViewDragHelper
     private var listener: DragListener? = null
-
+    private var alwaysNotifyOnDragging = false
 
     private var verticalDraggableRange: Int = 0
     private var uiBlocked: Boolean = false
@@ -78,7 +79,9 @@ class DragToClose : FrameLayout {
      */
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
         super.onSizeChanged(w, h, oldW, oldH)
-        verticalDraggableRange = h
+        if (!uiBlocked) { // If view is being closed don't update new vertical range
+            verticalDraggableRange = h
+        }
     }
 
     /**
@@ -115,6 +118,8 @@ class DragToClose : FrameLayout {
             ViewCompat.postInvalidateOnAnimation(this)
         }
     }
+
+    /************************************** BEGIN PUBLIC API **************************************/
 
     /**
      * Returns the draggable view id.
@@ -183,6 +188,15 @@ class DragToClose : FrameLayout {
     }
 
     /**
+     * If true DragListener.onDragging() will always be called when the draggable view is being
+     * dragged, even when it's triggered programatically. If false, it will only be called when
+     * then user is dragging the view (default).
+     */
+    fun setAlwaysNotifyOnDragging(alwaysNotify : Boolean) {
+        alwaysNotifyOnDragging = alwaysNotify
+    }
+
+    /**
      * Slides down draggable container out of the DragToClose view.
      */
     fun closeDraggableContainer() {
@@ -200,16 +214,18 @@ class DragToClose : FrameLayout {
     }
 
     /**
+     * Returns the draggable range.
+     */
+    fun getDraggableRange(): Int = verticalDraggableRange
+
+    /*************************************** END PUBLIC API ***************************************/
+
+    /**
      * Invoked when the view has just started to be dragged.
      */
     internal fun onStartDraggingView() {
         listener?.onStartDraggingView()
     }
-
-    /**
-     * Returns the draggable range.
-     */
-    fun getDraggableRange(): Int = verticalDraggableRange
 
     /**
      * Notifies the listener that the view has been closed
@@ -222,6 +238,7 @@ class DragToClose : FrameLayout {
             activity.finish()
             activity.overridePendingTransition(0, R.anim.dragtoclose_fade_out)
         }
+        listener = null
     }
 
     /**
@@ -230,14 +247,16 @@ class DragToClose : FrameLayout {
     internal fun onViewPositionChanged() {
         val verticalDragOffset = getVerticalDragOffset()
         changeDragViewViewAlpha(verticalDragOffset)
-        listener?.onDragging(verticalDragOffset)
+        if(alwaysNotifyOnDragging || !uiBlocked) {
+            listener?.onDragging(verticalDragOffset)
+        }
     }
 
     /**
      * Modify dragged view alpha based on the vertical position while the view is being
      * vertical dragged.
      */
-    internal fun changeDragViewViewAlpha(verticalDragOffset: Float) {
+    private fun changeDragViewViewAlpha(verticalDragOffset: Float) {
         draggableContainer.alpha = 1 - verticalDragOffset
     }
 
@@ -318,7 +337,7 @@ class DragToClose : FrameLayout {
     /**
      * Calculate the dragged view top position normalized between 1 and 0.
      */
-    private fun getVerticalDragOffset(): Float = Math.abs(draggableContainer.top).toFloat() / height.toFloat()
+    private fun getVerticalDragOffset(): Float = abs(draggableContainer.top).toFloat() / height.toFloat()
 
     /**
      * Slides down a view.

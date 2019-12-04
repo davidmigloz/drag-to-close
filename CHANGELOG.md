@@ -1,5 +1,12 @@
 # Changelog drag-to-close
 
+## `1.1.0` (04/12/19)
+
+- Unregister dragging listener when closing card programatically #13
+- Fix onViewCosed() never called if the screen size changes while closing view #25
+- Target Android 10 (API 29)
+- Update dependencies
+
 ## `1.0.0` (20/12/18)
 
 - Migrate project to Kotlin #22
