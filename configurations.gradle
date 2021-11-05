@@ -4,7 +4,7 @@ ext {
     kotlinJvmTarget = "11"
 
     androidConfig = [
-            minSdkVersion    : 19,
+            minSdkVersion    : 21,
             targetSdkVersion : 31,
             compileSdkVersion: 31
     ]

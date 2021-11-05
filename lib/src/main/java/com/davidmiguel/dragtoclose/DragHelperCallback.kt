@@ -24,8 +24,8 @@ import com.davidmiguel.dragtoclose.DragToClose.Companion.SPEED_THRESHOLD_TO_CLOS
  * Dragging controller.
  */
 internal class DragHelperCallback(
-        private val dragToClose: DragToClose,
-        private val draggableContainer: View
+    private val dragToClose: DragToClose,
+    private val draggableContainer: View
 ) : ViewDragHelper.Callback() {
 
     private var lastDraggingState: Int = ViewDragHelper.STATE_IDLE
@@ -42,9 +42,10 @@ internal class DragHelperCallback(
         // equal to the vertical draggable range, the view has being dragged out,
         // so close activity is called
         if ((lastDraggingState == ViewDragHelper.STATE_DRAGGING
-                        || lastDraggingState == ViewDragHelper.STATE_SETTLING)
-                && state == ViewDragHelper.STATE_IDLE
-                && topBorderDraggableContainer >= dragToClose.getDraggableRange()) {
+                    || lastDraggingState == ViewDragHelper.STATE_SETTLING)
+            && state == ViewDragHelper.STATE_IDLE
+            && topBorderDraggableContainer >= dragToClose.getDraggableRange()
+        ) {
             dragToClose.closeActivity()
         }
         // If the view has just started being dragged, notify event
@@ -113,6 +114,6 @@ internal class DragHelperCallback(
     override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
         val topBound = dragToClose.paddingTop // Top limit
         val bottomBound = dragToClose.getDraggableRange() // Bottom limit
-        return Math.min(Math.max(top, topBound), bottomBound)
+        return top.coerceAtLeast(topBound).coerceAtMost(bottomBound)
     }
 }

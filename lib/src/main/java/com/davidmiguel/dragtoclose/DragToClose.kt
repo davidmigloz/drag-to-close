@@ -18,14 +18,16 @@ package com.davidmiguel.dragtoclose
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import androidx.annotation.AttrRes
-import androidx.annotation.IdRes
-import androidx.core.view.ViewCompat
-import androidx.customview.widget.ViewDragHelper
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowInsets
 import android.widget.FrameLayout
+import androidx.annotation.AttrRes
+import androidx.annotation.IdRes
+import androidx.core.view.ViewCompat
+import androidx.core.view.forEach
+import androidx.customview.widget.ViewDragHelper
 import kotlin.math.abs
 
 /**
@@ -37,6 +39,7 @@ class DragToClose : FrameLayout {
     // Attributes
     @IdRes
     private var draggableContainerId: Int = -1
+
     @IdRes
     private var draggableViewId: Int = -1
     private var finishActivity: Boolean = false
@@ -82,6 +85,13 @@ class DragToClose : FrameLayout {
         if (!uiBlocked) { // If view is being closed don't update new vertical range
             verticalDraggableRange = h
         }
+    }
+
+    override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
+        this.forEach { children -> // Let children know about WindowInsets
+            children.dispatchApplyWindowInsets(insets)
+        }
+        return insets
     }
 
     /**
@@ -192,7 +202,7 @@ class DragToClose : FrameLayout {
      * dragged, even when it's triggered programatically. If false, it will only be called when
      * then user is dragging the view (default).
      */
-    fun setAlwaysNotifyOnDragging(alwaysNotify : Boolean) {
+    fun setAlwaysNotifyOnDragging(alwaysNotify: Boolean) {
         alwaysNotifyOnDragging = alwaysNotify
     }
 
@@ -208,8 +218,10 @@ class DragToClose : FrameLayout {
      * Slides up draggable container to its original position.
      */
     fun openDraggableContainer() {
-        slideViewTo(draggableContainer, paddingLeft + draggableContainerLeft,
-                paddingTop + draggableContainerTop)
+        slideViewTo(
+            draggableContainer, paddingLeft + draggableContainerLeft,
+            paddingTop + draggableContainerTop
+        )
         uiBlocked = false
     }
 
@@ -247,7 +259,7 @@ class DragToClose : FrameLayout {
     internal fun onViewPositionChanged() {
         val verticalDragOffset = getVerticalDragOffset()
         changeDragViewViewAlpha(verticalDragOffset)
-        if(alwaysNotifyOnDragging || !uiBlocked) {
+        if (alwaysNotifyOnDragging || !uiBlocked) {
             listener?.onDragging(verticalDragOffset)
         }
     }
@@ -293,11 +305,11 @@ class DragToClose : FrameLayout {
      */
     private fun initViews() {
         draggableContainer = findViewById(draggableContainerId)
-                ?: throw IllegalArgumentException("draggableContainer not found!")
+            ?: throw IllegalArgumentException("draggableContainer not found!")
         draggableContainerTop = draggableContainer.top
         draggableContainerLeft = draggableContainer.left
         draggableView = findViewById(draggableViewId)
-                ?: throw IllegalArgumentException("draggableView not found!")
+            ?: throw IllegalArgumentException("draggableView not found!")
         if (closeOnClick) {
             initOnClickListener(draggableView)
         }
@@ -314,8 +326,10 @@ class DragToClose : FrameLayout {
      * Initializes ViewDragHelper.
      */
     private fun initViewDragHelper() {
-        dragHelper = ViewDragHelper.create(this, DRAG_SENSITIVITY,
-                DragHelperCallback(this, draggableContainer))
+        dragHelper = ViewDragHelper.create(
+            this, DRAG_SENSITIVITY,
+            DragHelperCallback(this, draggableContainer)
+        )
     }
 
     /**
@@ -351,9 +365,11 @@ class DragToClose : FrameLayout {
 
         // Sensitivity detecting the start of a drag (larger values are more sensitive)
         private const val DRAG_SENSITIVITY = 1.0f
+
         // If the view is dragged with a higher speed than the threshold, the view is
         // closed automatically
         internal const val SPEED_THRESHOLD_TO_CLOSE = 800.0f
+
         // If dragging finishes below this threshold the view returns to its original position,
         // if the threshold is exceeded, the view is closed automatically
         internal const val HEIGHT_THRESHOLD_TO_CLOSE = 0.5f

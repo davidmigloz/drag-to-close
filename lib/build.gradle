@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
-ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
-ext.versionMinor = 2 // New features in a backwards-compatible manner
+ext.versionMajor = 2 // API Changes, adding big new feature, redesign the App
+ext.versionMinor = 0 // New features in a backwards-compatible manner
 ext.versionPatch = 0 // Backwards-compatible bug fixes
 ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
 

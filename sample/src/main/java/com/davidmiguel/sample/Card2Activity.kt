@@ -2,10 +2,8 @@ package com.davidmiguel.sample
 
 import android.os.Bundle
 import android.view.View
-
-import com.davidmiguel.dragtoclose.DragToClose
-
 import androidx.appcompat.app.AppCompatActivity
+import com.davidmiguel.dragtoclose.DragToClose
 
 /**
  * In this example the card can be dragged out card but the activity is not closed.

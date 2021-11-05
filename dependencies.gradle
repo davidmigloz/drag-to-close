@@ -28,7 +28,7 @@ ext {
     androidxAppCompat = '1.3.1'
 
     appDependencies = [
-            androidxCore: "androidx.core:core:$androidxCore",
+            androidxCore: "androidx.core:core-ktx:$androidxCore",
             androidxAnnotation : "androidx.annotation:annotation:$androidxAnnotation",
             androidxCustomView  : "androidx.customview:customview:$androidxCustomView",
             androidxAppCompat   : "androidx.appcompat:appcompat:$androidxAppCompat",

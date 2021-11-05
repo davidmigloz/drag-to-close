@@ -1,8 +1,15 @@
 # Changelog drag-to-close
 
+## `2.0.0` (05/11/21)
+
+- BREAKING CHANGE: minSdkVersion increased to 21 (Lollipop)
+- Target Android 12 (API 31)
+- Update dependencies / Remove JCenter
+- Propagate insets to children views
+
 ## `1.1.0` (04/12/19)
 
-- Unregister dragging listener when closing card programatically #13
+- Unregister dragging listener when closing card programmatically #13
 - Fix onViewCosed() never called if the screen size changes while closing view #25
 - Target Android 10 (API 29)
 - Update dependencies
