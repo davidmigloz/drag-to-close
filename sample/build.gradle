@@ -8,8 +8,16 @@ ext.versionPatch = 0 // Backwards-compatible bug fixes
 ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
 
 android {
+    compileOptions {
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = kotlinJvmTarget
+    }
+
     compileSdkVersion androidConfig.compileSdkVersion
-    buildToolsVersion androidConfig.buildToolsVersion
 
     defaultConfig {
         applicationId "com.davidmiguel.dragtoclose"
@@ -29,7 +37,7 @@ android {
 
 dependencies {
     implementation project(':lib')
-    implementation appDependencies.androidXCore
-    implementation appDependencies.appcompat
+    implementation appDependencies.androidxCore
+    implementation appDependencies.androidxAppCompat
     implementation appDependencies.kotlinStdlib
 }

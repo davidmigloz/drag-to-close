@@ -1,12 +1,12 @@
 ext {
 
-    javaVersion = JavaVersion.VERSION_1_8
+    javaVersion = JavaVersion.VERSION_11
+    kotlinJvmTarget = "11"
 
     androidConfig = [
-            buildToolsVersion: "29.0.2", // https://developer.android.com/studio/releases/build-tools
             minSdkVersion    : 19,
-            targetSdkVersion : 29,
-            compileSdkVersion: 29
+            targetSdkVersion : 31,
+            compileSdkVersion: 31
     ]
 
     /**

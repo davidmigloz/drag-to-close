@@ -3,13 +3,21 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
-ext.versionMinor = 0 // New features in a backwards-compatible manner
+ext.versionMinor = 2 // New features in a backwards-compatible manner
 ext.versionPatch = 0 // Backwards-compatible bug fixes
 ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
 
 android {
+    compileOptions {
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = kotlinJvmTarget
+    }
+
     compileSdkVersion androidConfig.compileSdkVersion
-    buildToolsVersion androidConfig.buildToolsVersion
 
     defaultConfig {
         minSdkVersion androidConfig.minSdkVersion
@@ -23,8 +31,8 @@ android {
 }
 
 dependencies {
-    implementation appDependencies.androidXCore
-    implementation appDependencies.annotations
-    implementation appDependencies.customView
+    implementation appDependencies.androidxCore
+    implementation appDependencies.androidxAnnotation
+    implementation appDependencies.androidxCustomView
     implementation appDependencies.kotlinStdlib
 }
