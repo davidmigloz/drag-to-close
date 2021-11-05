@@ -1,6 +1,7 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-android'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
 
 ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
 ext.versionMinor = 0 // New features in a backwards-compatible manner
